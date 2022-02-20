@@ -1,51 +1,44 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
-import PropTypes from 'prop-types';
-
-import Dashboard from "./Dashboard";
-
-
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 
 async function loginUser(credentials) {
-  return fetch('http://localhost:3000/login', {
-
-    headers: { 'Content-Type': 'application/json'},
-    method: 'POST',
-    body: JSON.stringify(credentials)
-
-  }).then(response => response.json())
-    .then(result => {
-      console.log(result.message);
-
-      if(result.message ==="LogIn Successfully"){
-        console.log(1);
-        // redirect
-
-      }
-      else if(result.message === "Invalid Password"){
-        console.log(2);
-
-      }
-      else if(result.message === "User does not exist"){
-        console.log(3);
-      }
-      
-    })
-    .catch(error => {
-      console.error('Error:', error);
+  try {
+    let response = await fetch('http://localhost:3000/login', {
+      headers: { 'Content-Type': 'application/json' },
+      method: 'POST',
+      body: JSON.stringify(credentials)
     });
+
+    response = await response.json();
+    console.log(response.message);
+    return response;
+
+  }
+  catch(err) {
+    console.error('Error:', err);
+  }
+
 }
 
 export default function Login() {
+  const history = useHistory();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    await loginUser({ email, password });
+    let response = await loginUser({ email, password });
 
-  }
+    if (response.statusCode == 200) {
+      history.push("/dashboard");
+    } else if (response.statusCode == 401) {
+      history.push("/dashboard");
+    } else if (response.statusCode == 403) {
+      history.push("/dashboard");
+    } else if (response.statusCode == 400) {
+      history.push("/dashboard");
+    }
+  };
 
   return (
     <div className="login-wrapper">
@@ -53,20 +46,26 @@ export default function Login() {
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input type="text" onChange={e => setEmail(e.target.value)} />
+          <input type="text" onChange={(e) => setEmail(e.target.value)} />
         </label>
         <label>
           <p>Password</p>
-          <input type="password" onChange={e => setPassword(e.target.value)} />
+          <input
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </label>
         <div>
           <button type="submit"> LogIn </button>
         </div>
       </form>
-    </div>
-  )
-}
 
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired
-};
+      <Link to = '/forgetPassword'>
+        <button type="submit" > Forget Password </button>
+      </Link>
+
+      
+
+    </div>
+  );
+}

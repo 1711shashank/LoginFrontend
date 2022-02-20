@@ -7,6 +7,9 @@ function Header() {
   return (
     <div className="header">
       <h1>Header Area</h1>
+      <Link to="/signup">
+        <button>Create Account</button>
+      </Link>
       <Link to="/login">
         <button>Log in</button>
       </Link>
