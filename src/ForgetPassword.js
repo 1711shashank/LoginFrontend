@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import ResetPassword from "./ResetPassword";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 async function generateResetPasswordLink(credentials) {
   try {
@@ -20,7 +22,7 @@ async function generateResetPasswordLink(credentials) {
 
 }
 
-export default function ForgetPassword() {
+export default function ForgetPassword(props) {
   const history = useHistory();
   const [email, setEmail] = useState();
 
@@ -29,12 +31,13 @@ export default function ForgetPassword() {
     let response = await generateResetPasswordLink({ email });
     console.log(response);
     if (response.statusCode == 511) {
-      // history.push("/signup");
+      history.push("/signup");
     } 
     else if(response.statusCode == 200){
-      let token = response.data.resetToken;
-      console.log(token);
-      // history.push(`/resetPassword/${token}`);
+      // let token = '123';  
+      console.log("clickeddddd");
+      props.parentCallback("123");
+    
     }
   };
 
@@ -53,3 +56,4 @@ export default function ForgetPassword() {
     </div>
   );
 }
+
