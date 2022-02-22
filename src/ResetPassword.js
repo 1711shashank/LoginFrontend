@@ -27,7 +27,7 @@ export default function ResetPassword() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let response = await changePassword({ password });
+    let response = await changePassword({ password});
     if (response.statusCode == 200) {
       history.push("/login");
     } 

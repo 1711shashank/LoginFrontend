@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import ResetPassword from "./ResetPassword";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 async function generateResetPasswordLink(credentials) {
   try {
@@ -34,9 +32,9 @@ export default function ForgetPassword(props) {
       history.push("/signup");
     } 
     else if(response.statusCode == 200){
-      // let token = '123';  
-      console.log("clickeddddd");
-      props.parentCallback("123");
+      let resetPasswordToken = response.data.resetToken;
+      console.log("clickeddddd",resetPasswordToken);
+      props.parentCallback(resetPasswordToken);
     
     }
   };
