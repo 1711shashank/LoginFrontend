@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 
-async function changePassword(credentials,backendToken) {
+async function changePassword(credentials) {
   try {
+    // console.log( "inside changepassword",backendToken.token);
+
+    let backendToken = localStorage.getItem('tokenKey');
+    
+
     let response = await fetch(`http://localhost:3000/resetPassword/${backendToken}`, {
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
@@ -27,9 +32,12 @@ export default function ResetPassword() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let response = await changePassword({ password});
+    // let token = localStorage.getItem('tokenKey');
+    // console.log( "inside handle",token);
+    let response = await changePassword({ password });
     if (response.statusCode == 200) {
-      history.push("/login");
+      localStorage.removeItem('tokenKey');
+      // history.push("/login");
     } 
     else if(response.statusCode == 404){
       console.log("Invalid token");

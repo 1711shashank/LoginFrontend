@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Signup from "./Signup";
 import Login from "./Login";
-import Example from "./test";
 import Dashboard from "./Dashboard";
 import ForgetPassword from "./ForgetPassword";
 import ResetPassword from "./ResetPassword";
@@ -15,19 +14,19 @@ import Header from "./Header";
 
 function App() {
   
-  let handleCallback = (token) => {
-    localStorage.setItem('tokenKey', token);
-  }
+  // let handleCallback = (token) => {
+  //   localStorage.setItem('tokenKey', token);
+  // }
 
   return (
     <Router>
       <div className="App">
         <Switch>
           <Route exact path="/signup" component={Signup} />
-          <Route exact path="/login" component={Example} />
+          <Route exact path="/login" component={Login} />
           <Route exact path="/dashboard" component={Dashboard} />
 
-          <Route exact path="/forgetPassword" > <ForgetPassword parentCallback={handleCallback} />  </Route>
+          <Route exact path="/forgetPassword" > <ForgetPassword/>  </Route>
 
           <Route exact path={`/resetPassword/${localStorage.getItem('tokenKey')}`} component={ResetPassword } />
 
