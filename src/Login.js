@@ -10,7 +10,10 @@ async function loginUser(credentials) {
     });
 
     response = await response.json();
-    console.log(response.message);
+    console.log("1",response.message);
+    localStorage.setItem('user', true);
+
+    // console.log("2",setToken(response.sessionToken));
     return response;
 
   }
@@ -30,7 +33,8 @@ export default function Login() {
     let response = await loginUser({ email, password });
 
     if (response.statusCode == 200) {
-      history.push("/dashboard");
+      localStorage.setItem('isLoggedIn', true);
+      history.push("/");
     } else if (response.statusCode == 401) {
       history.push("/dashboard");
     } else if (response.statusCode == 403) {
@@ -42,7 +46,7 @@ export default function Login() {
 
   return (
     <div className="login-wrapper">
-      <h1>Please Log In</h1>
+      <h1>shashank@gmail.com</h1>
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>

@@ -34,6 +34,7 @@ export default function ForgetPassword(props) {
     else if(response.statusCode == 200){
       let resetPasswordToken = response.data.resetToken;
       console.log("clickeddddd",resetPasswordToken);
+      
       localStorage.setItem('tokenKey', resetPasswordToken);
     }
   };
