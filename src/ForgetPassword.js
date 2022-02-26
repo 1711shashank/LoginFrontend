@@ -51,7 +51,7 @@ export default function ForgetPassword(props){
       <form onSubmit={handleSubmit}>
         <label>
           <p> Email</p>
-          <input type="email"  minsize="30" onChange={(e) => setEmail(e.target.value)} required/>
+          <input type="email"  onChange={(e) => setEmail(e.target.value)} required/>
         </label>
 
         <div>
