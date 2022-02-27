@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 
 async function loginUser(credentials) {
   try {
-    let response = await fetch('http://localhost:3000/login', {
+    let response = await fetch('https://backendloginshashank.herokuapp.com/login', {
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
       body: JSON.stringify(credentials)

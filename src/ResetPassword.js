@@ -6,7 +6,7 @@ async function changePassword(credentials) {
 
     let backendToken = localStorage.getItem('tokenKey');
     
-    let response = await fetch(`http://localhost:3000/resetPassword/${backendToken}`, {
+    let response = await fetch(`https://backendloginshashank.herokuapp.com/resetPassword/${backendToken}`, {
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
       body: JSON.stringify(credentials)
